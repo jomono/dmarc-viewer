@@ -1,16 +1,21 @@
 #!/bin/sh
+if [ -z "$DMARC_VIEWER_STARTUP_WAIT_FOR_DB" ]; then
+   DMARC_VIEWER_STARTUP_WAIT_FOR_DB=true
+fi
 set -x -e
 # Wait until DB is up
 # TODO: Is there a better way to check this?
-until python -c "import psycopg2; \
-                 psycopg2.connect( \
-                      dbname='dmarc_viewer_db', \
-                      user='dmarc_viewer_db', \
-                      host='${DMARC_VIEWER_DB_HOST}', \
-                      password='${DMARC_VIEWER_DB_KEY}')"; do
-  >&2 echo "Postgres is unavailable - sleeping"
-  sleep 1
-done
+if [ "$DMARC_VIEWER_STARTUP_WAIT_FOR_DB" != "false" ]; then
+    until python -c "import psycopg2; \
+                     psycopg2.connect( \
+                          dbname='dmarc_viewer_db', \
+                          user='dmarc_viewer_db', \
+                          host='${DMARC_VIEWER_DB_HOST}', \
+                          password='${DMARC_VIEWER_DB_KEY}')"; do
+      >&2 echo "Postgres is unavailable - sleeping"
+      sleep 1
+    done
+fi
 
 # NOTE: Below management commands are no-ops if they ran before
 # Populate initial DMARC viewer db model
