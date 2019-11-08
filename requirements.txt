@@ -7,4 +7,3 @@ CairoSVG==1.0.22
 geoip2==2.6.0
 python-dateutil==2.6.1
 pytz==2017.3
-MySQL-python
