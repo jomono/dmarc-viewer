@@ -114,9 +114,9 @@ WSGI_APPLICATION = 'dmarc_viewer.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get("DMARC_VIEWER_DB_ENGINE", 'django.db.backends.postgresql_psycopg2'),
-        'NAME': os.environ.get("DMARC_VIEWER_DB_NAME", 'dmarc_viewer_db'),
-        'USER': os.environ.get("DMARC_VIEWER_DB_USER", 'dmarc_viewer_db'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dmarc_viewer_db',
+        'USER': 'dmarc_viewer_db',
         'PASSWORD': os.environ.get("DMARC_VIEWER_DB_KEY", ""),
         'HOST': os.environ.get("DMARC_VIEWER_DB_HOST", "127.0.0.1")
     }
